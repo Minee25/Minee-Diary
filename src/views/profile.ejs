@@ -1,0 +1,251 @@
+<div class="container mx-auto px-3 py-5 mt-28 bg-[#0075f7] rounded-2xl">
+  <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8">
+    <!-- Profile Header -->
+    <div class="text-center mb-8">
+      <div class="w-32 h-32 mx-auto bg-blue-500 rounded-full flex items-center justify-center mb-4">
+        <span class="text-3xl text-white font-bold">
+          <%= userData.display_name.charAt(0).toUpperCase() %>
+        </span>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-800">
+        <%= userData.display_name %>
+      </h1>
+      <p class="text-gray-600 text-lg font-semibold">#<%= userData.username %></p>
+      <p class="text-gray-600">สมาชิกตั้งแต่ <%= new Date(userData.created_at).toLocaleDateString('th-TH', {
+          year: 'numeric' , month: 'long' , day: 'numeric' }) %>
+      </p>
+    </div>
+
+    <!-- Profile Information -->
+    <div class="space-y-6">
+      <div class="border-t border-gray-200 pt-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">ข้อมูลโปรไฟล์</h2>
+        <div class="grid grid-cols-1 gap-4">
+          <div class="bg-gray-100 p-4 rounded-lg">
+            <p class="text-sm text-gray-600">ชื่อผู้ใช้</p>
+            <div class="flex justify-between">
+              <p class="text-lg font-medium text-gray-600">
+                <%= userData.display_name %>
+              </p>
+              <i id="change-display-name" class="fa-solid fa-pen-to-square text-xl cursor-pointer text-blue-500"></i>
+            </div>
+          </div>
+          <div class="bg-gray-100 p-4 rounded-lg">
+            <p class="text-sm text-gray-600">รหัสผ่าน</p>
+            <div class="flex justify-between">
+              <p class="text-lg font-medium text-gray-600">
+                ************
+              </p>
+              <i id="change-password" class="fa-solid fa-pen-to-square text-xl cursor-pointer text-blue-500"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="border-t border-gray-200 pt-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">การจัดการ</h2>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="/diary"
+            class="flex-1 bg-blue-500 text-white text-center py-3 px-6 rounded-lg hover:bg-blue-600 transition-colors duration-300">
+            <i class="fas fa-sticky-note mr-2"></i>
+            ดู Diary ของฉัน
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
+
+<script>
+
+  document.getElementById("change-password").addEventListener("click", () => {
+    Swal.fire({
+      title: "เปลี่ยนรหัสผ่าน",
+      html: `
+        <div class="space-y-6">
+          <div class="w-full">
+            <label class="block text-sm text-start font-medium text-gray-700 mb-2">รหัสผ่านปัจจุบัน</label>
+            <div class="relative">  
+              <input type="password" id="current-password" name="current-password" required
+                class="w-full p-4 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 outline-none"
+                placeholder="กรุณากรอกรหัสผ่านปัจจุบัน">
+              <i class="fas fa-lock absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            </div>
+          </div>
+
+          <div class="w-full">
+            <label class="block text-sm text-start font-medium text-gray-700 mb-2">รหัสผ่านใหม่</label>
+            <div class="relative">  
+              <input type="password" id="new-password" name="new-password" required
+                class="w-full p-4 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 outline-none"
+                placeholder="กรุณากรอกรหัสผ่านใหม่">
+              <i class="fas fa-lock absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            </div>
+          </div> 
+
+          <div class="w-full">
+            <label class="block text-sm text-start font-medium text-gray-700 mb-2">รหัสผ่านใหม่</label>
+            <div class="relative">  
+              <input type="password" id="confirm-password" name="confirm-password" required
+                class="w-full p-4 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 outline-none"
+                placeholder="กรุณากรอกรหัสผ่านใหม่">
+              <i class="fas fa-lock absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            </div>
+          </div>  
+        </div>
+      `,
+      showCancelButton: true,
+      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "บันทึก",
+      customClass: {
+        popup: '!rounded-2xl !shadow-xl !py-8',
+        title: '!text-2xl !font-bold !text-gray-800 !mb-6',
+        actions: '!flex !flex-row !w-full !flex-nowrap !gap-4 !mt-6 !px-8',
+        confirmButton: '!w-full !m-0 !bg-blue-500 !text-white !py-3 !px-4 !rounded-lg !font-semibold hover:!bg-blue-600 !transition-all !duration-300 hover:!-translate-y-1 hover:!shadow-lg !focus:outline-none !focus:ring-2 !focus:ring-blue-500 !focus:ring-offset-2',
+        cancelButton: '!w-full !m-0 !bg-red-500 !text-white !py-3 !px-4 !rounded-lg !font-semibold hover:!bg-red-600 !transition-all !duration-300 hover:!-translate-y-1 hover:!shadow-lg !focus:outline-none !focus:ring-2 !focus:ring-red-500 !focus:ring-offset-2',
+        htmlContainer: '!overflow-visible !m-0 !px-8'
+      },
+      preConfirm: async () => {
+        const currentPassword = document.getElementById('current-password').value;
+        const newPassword = document.getElementById('new-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+
+        if (!currentPassword || !newPassword || !confirmPassword) {
+          Swal.showValidationMessage('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+          return false;
+        }
+
+        if (newPassword !== confirmPassword) {
+          Swal.showValidationMessage('รหัสผ่านใหม่ไม่ตรงกัน');
+          return false;
+        }
+
+        try {
+          const response = await fetch('/change-password', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              currentPassword,
+              newPassword
+            })
+          });
+
+          if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน');
+          }
+
+          return response.json();
+        } catch (error) {
+          Swal.showValidationMessage(error.message);
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'สำเร็จ!',
+          text: 'เปลี่ยนรหัสผ่านเรียบร้อยแล้ว',
+          icon: 'success',
+          confirmButtonColor: "#00c950",
+          confirmButtonText: "ตกลง",
+          customClass: {
+            popup: 'rounded-2xl shadow-xl',
+            title: 'text-2xl font-bold text-gray-800',
+            confirmButton: 'w-full py-3 rounded-lg font-medium text-lg bg-blue-500 hover:bg-blue-600 transition-colors duration-300'
+          }
+        });
+      }
+    });
+  });
+
+  document.getElementById("change-display-name").addEventListener("click", () => {
+    Swal.fire({
+      title: "เปลี่ยนชื่อผู้ใช้",
+      html: `
+        <div class="space-y-6">
+          <div class="w-full">
+            <label class="block text-sm text-start font-medium text-gray-700 mb-2">ชื่อผู้ใช้</label>
+            <div class="relative">  
+              <input type="text" value="<%- userData.display_name %>" id="new-display-name" name="new-display-name" required
+                class="w-full p-4 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 outline-none"
+                placeholder="กรุณากรอกเปลี่ยนชื่อผู้ใช้ใหม่">
+              <i class="fas fa-user absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            </div>
+          </div> 
+        </div>
+      `,
+      showCancelButton: true,
+      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "บันทึก",
+      customClass: {
+        popup: '!rounded-2xl !shadow-xl !py-8',
+        title: '!text-2xl !font-bold !text-gray-800 !mb-6',
+        actions: '!flex !flex-row !w-full !flex-nowrap !gap-4 !mt-6 !px-8',
+        confirmButton: '!w-full !m-0 !bg-blue-500 !text-white !py-3 !px-4 !rounded-lg !font-semibold hover:!bg-blue-600 !transition-all !duration-300 hover:!-translate-y-1 hover:!shadow-lg !focus:outline-none !focus:ring-2 !focus:ring-blue-500 !focus:ring-offset-2',
+        cancelButton: '!w-full !m-0 !bg-red-500 !text-white !py-3 !px-4 !rounded-lg !font-semibold hover:!bg-red-600 !transition-all !duration-300 hover:!-translate-y-1 hover:!shadow-lg !focus:outline-none !focus:ring-2 !focus:ring-red-500 !focus:ring-offset-2',
+        htmlContainer: '!overflow-visible !m-0 !px-8'
+      },
+      preConfirm: async () => {
+        const newDisplayName = document.getElementById('new-display-name').value.trim();
+        console.log('New display name:', newDisplayName);
+
+        if (newDisplayName === '') {
+          Swal.showValidationMessage('กรุณากรอกชื่อผู้ใช้');
+          return false;
+        }
+
+        if (newDisplayName === '<%- userData.display_name %>') {
+          Swal.showValidationMessage('กรุณากรอกชื่อผู้ใช้ใหม่ที่แตกต่างจากชื่อเดิม');
+          return false;
+        }
+
+        try {
+          const response = await fetch('/change-display-name', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              newDisplayName
+            })
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message);
+          }
+
+          return data;
+        } catch (error) {
+          Swal.showValidationMessage(error.message);
+          return false;
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'สำเร็จ!',
+          text: 'เปลี่ยนชื่อผู้ใช้เรียบร้อยแล้ว',
+          icon: 'success',
+          confirmButtonColor: "#00c950",
+          confirmButtonText: "ตกลง",
+          customClass: {
+            popup: 'rounded-2xl shadow-xl',
+            title: 'text-2xl font-bold text-gray-800',
+            confirmButton: 'w-full py-3 rounded-lg font-medium text-lg bg-blue-500 hover:bg-blue-600 transition-colors duration-300'
+          }
+        }).then(() => {
+          window.location.reload();
+        });
+      }
+    });
+  });
+</script>

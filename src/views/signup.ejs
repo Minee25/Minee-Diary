@@ -1,0 +1,132 @@
+<div class="container p-3 mx-auto max-w-md min-h-screen flex justify-center items-center">
+  <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-[512px]">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">สมัครสมาชิก</h1>
+      <p class="text-gray-600">เริ่มต้นใช้งาน MineeNote</p>
+    </div>
+
+    <!-- Sign Up Form -->
+    <form method="POST" action="/signup" class="space-y-6"> 
+      <!-- Email Field -->
+      <div>
+        <label for="username" class="block text-sm font-medium text-gray-700 mb-2">ชื่อผู้ใช้</label>
+        <input type="text" id="username" name="username" required
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 outline-none"
+          placeholder="กรอกชื่อของคุณ">
+      </div>
+
+      <!-- Password Field -->
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">รหัสผ่าน</label>
+        <div class="relative">
+          <input type="password" id="password" name="password" required
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 outline-none pr-12"
+            placeholder="สร้างรหัสผ่าน">
+          <button type="button" onclick="togglePassword('password', 'eye-icon-1')"
+            class="absolute cursor-pointer right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors duration-300">
+            <svg id="eye-icon-1" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+              fill="currentColor">
+              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+              <path fill-rule="evenodd"
+                d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div> 
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div>
+        <label for="confirm_password" class="block text-sm font-medium text-gray-700 mb-2">ยืนยันรหัสผ่าน</label>
+        <div class="relative">
+          <input type="password" id="confirm_password" name="confirm_password" required
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 outline-none pr-12"
+            placeholder="ยืนยันรหัสผ่านอีกครั้ง">
+          <button type="button" onclick="togglePassword('confirm_password', 'eye-icon-2')"
+            class="absolute cursor-pointer right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors duration-300">
+            <svg id="eye-icon-2" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+              fill="currentColor">
+              <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+              <path fill-rule="evenodd"
+                d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+        <div id="password-match-message" class="text-red-500 text-xs mt-1 hidden"></div>
+      </div>
+
+      <!-- Sign Up Button -->
+      <button type="submit"
+        class="cursor-pointer w-full bg-blue-500 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+        สมัครสมาชิก
+      </button>
+    </form>
+
+    <!-- Sign In Link -->
+    <div class="text-center mt-8">
+      <p class="text-gray-600">มีบัญชีอยู่แล้ว?
+        <a href="/signin"
+          class="text-blue-500 hover:text-blue-700 font-semibold transition-colors duration-300">เข้าสู่ระบบ</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function togglePassword(fieldId, iconId) {
+    const passwordField = document.getElementById(fieldId);
+    const eyeIcon = document.getElementById(iconId);
+
+    if (passwordField.type === 'password') {
+      passwordField.type = 'text';
+      eyeIcon.innerHTML = `
+                    <path d="M17.94 17.94A10.07 10.07 0 01.66 10a10.07 10.07 0 0117.28 0 9.98 9.98 0 01-17.28 0z" />
+                    <path d="M9.9 4.24A9.12 9.12 0 0110 4a10.07 10.07 0 018.93 5.17 10.07 10.07 0 01-8.93 5.17" />
+                    <path d="M1 1l22 22" />
+                `;
+    } else {
+      passwordField.type = 'password';
+      eyeIcon.innerHTML = `
+                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                `;
+    }
+  }
+
+  // Password validation
+  function validatePasswords() {
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm_password').value;
+    const messageDiv = document.getElementById('password-match-message');
+
+    if (confirmPassword.length > 0) {
+      if (password === confirmPassword) {
+        messageDiv.textContent = ''; 
+        messageDiv.classList.remove('hidden');
+      } else {
+        messageDiv.textContent = 'รหัสผ่านไม่ตรงกัน'; 
+        messageDiv.classList.remove('hidden');
+      }
+    } else {
+      messageDiv.classList.add('hidden');
+    }
+  }
+
+  // Add event listeners for password validation
+  document.getElementById('password').addEventListener('input', validatePasswords);
+  document.getElementById('confirm_password').addEventListener('input', validatePasswords);
+
+  // Form submission validation
+  document.querySelector('form').addEventListener('submit', function (e) {
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirm_password').value; 
+ 
+    if (password !== confirmPassword) {
+      alert('รหัสผ่านไม่ตรงกัน กรุณาตรวจสอบอีกครั้ง');
+      e.preventDefault();
+      return;
+    } 
+  });
+</script>

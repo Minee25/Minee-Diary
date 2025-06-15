@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@theme {
+  --color-minee-blue: #02C9FB;
+}
+
+@layer base {
+  body { 
+    font-family: "IBM Plex Sans Thai", sans-serif;
+  }
+}
