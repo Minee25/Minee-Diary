@@ -124,7 +124,7 @@
         }
 
         try {
-          const response = await fetch('/change-password', {
+          const response = await fetch('/auth/change-password', {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -206,7 +206,7 @@
         }
 
         try {
-          const response = await fetch('/change-display-name', {
+          const response = await fetch('/auth/change-display-name', {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',

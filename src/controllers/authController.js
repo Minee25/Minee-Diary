@@ -65,7 +65,7 @@ module.exports.signupPost = async (req, res) => {
     });
 
     console.log(`User ${username} registered successfully`);
-    res.redirect("/signin");
+    res.redirect("/auth/signin");
   } catch (err) {
     console.error("Signup error:", err);
     res.status(500).send("Internal server error")

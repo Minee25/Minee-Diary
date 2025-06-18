@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-minee-blue: #02C9FB;
+  --color-diary-bg: #f8fafc; 
+  --color-diary-text: #1e293b;
+  --color-diary-text-secondary: #64748b;
 }
 
 @layer base {

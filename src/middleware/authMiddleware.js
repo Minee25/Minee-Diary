@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
 
-const authMiddleware = (req, res, next) => {
+exports.authMiddleware = (req, res, next) => {
   // Get token from cookie
   const token = req.cookies.token;
 
   if (!token) {
-    return res.redirect('/signin');
+    return res.redirect('/auth/signin');
   }
 
   try {
@@ -19,8 +19,22 @@ const authMiddleware = (req, res, next) => {
   } catch (error) {
     console.error('Auth middleware error:', error);
     res.clearCookie('token');
-    return res.redirect('/signin');
+    return res.redirect('/auth/signin');
   }
 };
 
-module.exports = authMiddleware; 
+exports.isAuthenticated = (req, res, next) => {
+  const token = req.cookies.token;
+
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET || "jwt_secret");
+      req.user = decoded;
+      return res.redirect("/");
+    } catch (err) {
+      next();
+    }
+  } else {
+    next();
+  }
+}

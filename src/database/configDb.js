@@ -31,9 +31,59 @@ function createTable() {
   });
 }
 
+function createDiaryTable() {
+  userDb.run(`
+    CREATE TABLE IF NOT EXISTS diary (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      userId INTEGER NOT NULL,
+      slug TEXT UNIQUE NOT NULL,
+      logo TEXT,
+      title TEXT,
+      description TEXT,
+      contact TEXT,
+      music_title TEXT,
+      music_artist TEXT,
+      music_url TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      text_color TEXT DEFAULT '#000000',
+      theme_color TEXT DEFAULT '#EBEEEF',
+      background_color TEXT DEFAULT '#C4D2E0',
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (userId) REFERENCES users (id)
+    )
+  `, (err) => {
+    if (err) {
+      console.error("Error creating diary table:", err.message);
+    } 
+  });
+}
+
+function createMemories() {
+  userDb.run(`
+    CREATE TABLE IF NOT EXISTS memories (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      userId INTEGER NOT NULL,
+      title TEXT NOT NULL,
+      description TEXT,
+      image TEXT,
+      date DATE,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      music_url TEXT,
+      likes INTEGER DEFAULT 0,
+      FOREIGN KEY (userId) REFERENCES users (id)
+    )
+  `, (err) => {
+    if (err) {
+      console.error("Error creating memories table:", err.message);
+    }
+  });
+}
 
 userDb.serialize(() => {
   createTable();
+  createDiaryTable();
+  createMemories();
 });
 
 process.on('SIGINT', () => {
